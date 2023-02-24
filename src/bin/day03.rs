@@ -1,8 +1,7 @@
 use std::collections::HashSet;
 
 fn get_inputs() -> std::str::Chars<'static> {
-    include_str!("../../input/day03.txt")
-        .chars()
+    include_str!("../../input/day03.txt").chars()
 }
 
 fn part1() -> usize {
@@ -12,12 +11,12 @@ fn part1() -> usize {
                 '>' => state.0 += 1,
                 '<' => state.0 -= 1,
                 '^' => state.1 += 1,
-                 _  => state.1 -= 1,
+                _ => state.1 -= 1,
             };
             Some(*state)
         })
         .chain(std::iter::once((0, 0)))
-        .collect::<HashSet::<(i32, i32)>>()
+        .collect::<HashSet<(i32, i32)>>()
         .len()
 }
 
@@ -26,15 +25,15 @@ fn part2() -> usize {
         .enumerate()
         .scan(vec![(0, 0), (0, 0)], |state, (i, d)| {
             match d {
-                '>' => state[i%2].0 += 1,
-                '<' => state[i%2].0 -= 1,
-                '^' => state[i%2].1 += 1,
-                 _  => state[i%2].1 -= 1,
+                '>' => state[i % 2].0 += 1,
+                '<' => state[i % 2].0 -= 1,
+                '^' => state[i % 2].1 += 1,
+                _ => state[i % 2].1 -= 1,
             };
-            Some(state[i%2])
+            Some(state[i % 2])
         })
         .chain(std::iter::once((0, 0)))
-        .collect::<HashSet::<(i32, i32)>>()
+        .collect::<HashSet<(i32, i32)>>()
         .len()
 }
 

@@ -1,7 +1,5 @@
 fn get_inputs() -> Vec<char> {
-    include_str!("../../input/day01.txt")
-        .chars()
-        .collect()
+    include_str!("../../input/day01.txt").chars().collect()
 }
 
 fn part1() -> i32 {

@@ -3,20 +3,26 @@ use itertools::Itertools;
 fn get_inputs() -> Vec<(usize, usize, usize)> {
     include_str!("../../input/day02.txt")
         .lines()
-        .map(|l| l.split('x').map(|x| x.parse().unwrap()).sorted().collect_tuple().unwrap())
+        .map(|l| {
+            l.split('x')
+                .map(|x| x.parse().unwrap())
+                .sorted()
+                .collect_tuple()
+                .unwrap()
+        })
         .collect()
 }
 
 fn part1() -> usize {
-    get_inputs().iter().fold(0, |acc, x|
+    get_inputs().iter().fold(0, |acc, x| {
         acc + (2 * ((x.0 * x.1) + (x.1 * x.2) + (x.0 * x.2)) + (x.0 * x.1))
-    )
+    })
 }
 
 fn part2() -> usize {
-    get_inputs().iter().fold(0, |acc, x|
-        acc + (2 * (x.0 + x.1)) + (x.0 * x.1 * x.2)
-    )
+    get_inputs()
+        .iter()
+        .fold(0, |acc, x| acc + (2 * (x.0 + x.1)) + (x.0 * x.1 * x.2))
 }
 
 fn main() {
