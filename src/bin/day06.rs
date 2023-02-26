@@ -1,10 +1,10 @@
 use regex::Regex;
 
 fn get_inputs() -> Vec<(String, usize, usize, usize, usize)> {
-    let re = Regex::new(r"((turn )?(off|on|toggle)) (\d+),(\d+) through (\d+),(\d+)").unwrap();
+    let re = Regex::new(r"(turn )?(off|on|toggle) (\d+),(\d+) through (\d+),(\d+)").unwrap();
     re.captures_iter(include_str!("../../input/day06.txt"))
         .map(|caps| {
-            (caps[3].to_string(), caps[4].parse().unwrap(), caps[5].parse().unwrap(), caps[6].parse().unwrap(), caps[7].parse().unwrap())
+            (caps[2].to_string(), caps[3].parse().unwrap(), caps[4].parse().unwrap(), caps[5].parse().unwrap(), caps[6].parse().unwrap())
         })
         .collect()
 }
