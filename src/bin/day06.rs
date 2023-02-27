@@ -9,38 +9,84 @@ fn get_inputs() -> Vec<(String, usize, usize, usize, usize)> {
         .collect()
 }
 
-fn part1() -> usize {
-    let mut lights = vec![vec![false; 1_000]; 1_000];
-    for input in get_inputs() {
-        for r in &mut lights[input.1..=input.3] {
-            for c in &mut r[input.2..=input.4] {
-                match &input.0[..] {
-                    "off" => *c = false,
-                    "on" => *c = true,
-                    "toggle" => *c ^= true,
-                    _ => panic!("Unexpected input {}", input.0)
-                }
-            }
-        };
-    }
-    lights.iter().flat_map(|r| r.iter()).filter(|&&l| l == true).count()
+fn part1() -> i32 {
+    get_inputs()
+        .iter()
+        .scan(vec![vec![false; 1_000]; 1_000], |lights, input| {
+            Some((input.1..=input.3)
+                .map(|r|
+                    (input.2..=input.4)
+                        .map(|c|
+                            match &input.0[..] {
+                                "off" => {
+                                    match lights[r][c] {
+                                        true => {
+                                            lights[r][c] = false;
+                                            -1
+                                        },
+                                        _ => 0
+                                    }
+                                },
+                                "on" => {
+                                    match lights[r][c] {
+                                        false => {
+                                            lights[r][c] = true;
+                                            1
+                                        },
+                                        _ => 0
+                                    }
+                                },
+                                _ => {
+                                    lights[r][c] ^= true;
+                                    match lights[r][c] {
+                                        true => {
+                                            1
+                                        },
+                                        _ => -1
+                                    }
+                                }
+                            }
+                        )
+                        .sum::<i32>()
+                    )
+                .sum::<i32>()
+            )
+        })
+        .sum()
 }
 
-fn part2() -> usize {
-    let mut lights = vec![vec![0usize; 1_000]; 1_000];
-    for input in get_inputs() {
-        for r in &mut lights[input.1..=input.3] {
-            for c in &mut r[input.2..=input.4] {
-                match &input.0[..] {
-                    "off" => *c = c.saturating_sub(1),
-                    "on" => *c += 1,
-                    "toggle" => *c += 2,
-                    _ => panic!("Unexpected input {}", input.0)
-                }
-            }
-        };
-    }
-    lights.iter().flat_map(|r| r.iter()).sum()
+fn part2() -> i32 {
+    get_inputs()
+        .iter()
+        .scan(vec![vec![0usize; 1_000]; 1_000], |lights, input| {
+            Some((input.1..=input.3)
+                .map(|r|
+                    (input.2..=input.4)
+                        .map(|c|
+                            match &input.0[..] {
+                                "off" => {
+                                    match lights[r][c] {
+                                        0 => 0,
+                                        _ => {
+                                            lights[r][c] -= 1;
+                                            -1
+                                        }
+                                    }
+                                },
+                                "on" => {
+                                    lights[r][c] += 1;
+                                    1
+                                },
+                                _ => {
+                                    lights[r][c] += 2;
+                                    2
+                                }
+                            }
+                    ).sum::<i32>()
+                ).sum::<i32>()
+            )
+        })
+     .sum()
 }
 
 fn main() {
