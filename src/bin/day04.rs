@@ -6,7 +6,10 @@ fn get_inputs() -> &'static str {
 
 fn mine(zeros: usize) -> usize {
     (0..)
-        .find(|i| format!("{:x}", md5::compute(format!("{}{}", get_inputs(), i))).starts_with(&format!("{:0zeros$}", 0)))
+        .find(|i| {
+            format!("{:x}", md5::compute(format!("{}{}", get_inputs(), i)))
+                .starts_with(&format!("{:0zeros$}", 0))
+        })
         .unwrap()
 }
 
