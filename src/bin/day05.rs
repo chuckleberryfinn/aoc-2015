@@ -1,50 +1,42 @@
 use regex::Regex;
 
-fn get_inputs() -> Vec<& 'static str> {
-    include_str!("../../input/day05.txt")
-        .lines()
-        .collect()
+fn get_inputs() -> Vec<&'static str> {
+    include_str!("../../input/day05.txt").lines().collect()
 }
 
 fn part1() -> usize {
     let re = Regex::new(r"(ab|cd|pq|xy)").unwrap();
     get_inputs()
         .iter()
-        .filter(|l|
+        .filter(|l| {
             !re.is_match(&l)
-            & (
-                l
-                    .chars()
+                & (l.chars()
                     .filter(|c| "aeiou".contains(*c))
                     .collect::<Vec<char>>()
-                    .len() >= 3
-            ) & (
-                l
-                    .chars()
+                    .len()
+                    >= 3)
+                & (l.chars()
                     .collect::<Vec<char>>()
                     .windows(2)
-                    .any(|w| w[0] == w[1])
-            )
-        )
+                    .any(|w| w[0] == w[1]))
+        })
         .count()
 }
 
 fn part2() -> usize {
     get_inputs()
         .iter()
-        .filter(|l|
-            (l
-                .chars()
+        .filter(|l| {
+            (l.chars()
                 .collect::<Vec<char>>()
                 .windows(3)
-                .any(|w| w[0] == w[2])
-            ) & (l
-                .chars()
-                .collect::<Vec<char>>()
-                .windows(2)
-                .enumerate()
-                .any(|(i, w)| l[i+2..].contains(&w.into_iter().collect::<String>())))
-        )
+                .any(|w| w[0] == w[2]))
+                & (l.chars()
+                    .collect::<Vec<char>>()
+                    .windows(2)
+                    .enumerate()
+                    .any(|(i, w)| l[i + 2..].contains(&w.into_iter().collect::<String>())))
+        })
         .count()
 }
 
