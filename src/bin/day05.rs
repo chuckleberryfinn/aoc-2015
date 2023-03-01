@@ -10,10 +10,7 @@ fn part1() -> usize {
         .iter()
         .filter(|l| {
             !re.is_match(&l)
-                & (l.chars()
-                    .filter(|c| "aeiou".contains(*c))
-                    .count()
-                    >= 3)
+                & (l.chars().filter(|c| "aeiou".contains(*c)).count() >= 3)
                 & (l.chars()
                     .collect::<Vec<char>>()
                     .windows(2)
