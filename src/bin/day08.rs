@@ -5,10 +5,9 @@ fn get_inputs() -> Vec<&'static str> {
 }
 
 fn part1() -> usize {
-    let re = Regex::new(r#"^"|"$"#).unwrap();
-    let re1 = Regex::new(r#"\\"|\\\\|\\x[0-9a-f]{2}"#).unwrap();
+    let re = Regex::new(r#"\\"|\\\\|\\x[0-9a-f]{2}"#).unwrap();
     get_inputs().iter().fold(0, |acc, s| {
-        acc + (s.len() - re1.replace_all(&re.replace_all(s, ""), " ").len())
+        acc + (s.len() - re.replace_all(s, " ").len()) + 2
     })
 }
 
