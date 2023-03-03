@@ -14,7 +14,7 @@ fn part1() -> usize {
 fn part2() -> usize {
     let re = Regex::new(r#""|\\"#).unwrap();
     get_inputs().iter().fold(0, |acc, s| {
-        acc + (re.replace_all(s, r#"  "#).len() - s.len()) + 2
+        acc + (re.replace_all(s, "  ").len() - s.len()) + 2
     })
 }
 
