@@ -1,5 +1,3 @@
-use md5;
-
 fn get_inputs() -> &'static str {
     "yzbqklnj"
 }
