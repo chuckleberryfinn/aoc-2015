@@ -31,9 +31,9 @@ fn get_inputs() -> Vec<Instruction> {
 fn calculate(mut wires: HashMap<&str, u16>) -> u16 {
     let inputs = get_inputs();
     loop {
-        if inputs
+        match inputs
             .iter()
-            .find(|instruction| {
+            .any(|instruction| {
                 match instruction.operation {
                     Some(i) => match i {
                         "AND" | "OR" => {
@@ -103,11 +103,10 @@ fn calculate(mut wires: HashMap<&str, u16>) -> u16 {
                     }
                 };
                 wires.contains_key(&"a")
-            })
-            .is_some()
-        {
-            return *wires.get(&"a").unwrap();
-        };
+            }) {
+                true => return *wires.get(&"a").unwrap(),
+                false => (),
+            }
     }
 }
 
