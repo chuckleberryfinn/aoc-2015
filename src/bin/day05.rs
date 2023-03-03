@@ -9,7 +9,7 @@ fn part1() -> usize {
     get_inputs()
         .iter()
         .filter(|l| {
-            !re.is_match(&l)
+            !re.is_match(l)
                 & (l.chars().filter(|c| "aeiou".contains(*c)).count() >= 3)
                 & (l.chars()
                     .collect::<Vec<char>>()
@@ -31,7 +31,7 @@ fn part2() -> usize {
                     .collect::<Vec<char>>()
                     .windows(2)
                     .enumerate()
-                    .any(|(i, w)| l[i + 2..].contains(&w.into_iter().collect::<String>())))
+                    .any(|(i, w)| l[i + 2..].contains(&w.iter().collect::<String>())))
         })
         .count()
 }
