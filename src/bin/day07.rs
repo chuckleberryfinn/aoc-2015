@@ -31,11 +31,10 @@ fn get_inputs() -> Vec<Instruction> {
 fn calculate(mut wires: HashMap<&str, u16>) -> u16 {
     let inputs = get_inputs();
     loop {
-        match inputs
-            .iter()
-            .any(|instruction| {
-                match instruction.operation {
-                    Some(i) => match i {
+        match inputs.iter().any(|instruction| {
+            match instruction.operation {
+                Some(i) => {
+                    match i {
                         "AND" | "OR" => {
                             if (instruction.operand1.parse::<u16>().is_err()
                                 & !wires.contains_key(instruction.operand1))
@@ -85,28 +84,29 @@ fn calculate(mut wires: HashMap<&str, u16>) -> u16 {
                                 !*wires.get(&instruction.operand1).unwrap(),
                             );
                         }
-                    },
-                    None => {
-                        if wires.contains_key(instruction.destination)
-                            | (instruction.operand1.parse::<u16>().is_err()
-                                & !wires.contains_key(&instruction.operand1))
-                        {
-                            return false;
-                        }
-                        wires.insert(
-                            instruction.destination,
-                            instruction
-                                .operand1
-                                .parse::<u16>()
-                                .unwrap_or_else(|_| *wires.get(&instruction.operand1).unwrap()),
-                        );
                     }
-                };
-                wires.contains_key(&"a")
-            }) {
-                true => return *wires.get(&"a").unwrap(),
-                false => (),
-            }
+                }
+                None => {
+                    if wires.contains_key(instruction.destination)
+                        | (instruction.operand1.parse::<u16>().is_err()
+                            & !wires.contains_key(&instruction.operand1))
+                    {
+                        return false;
+                    }
+                    wires.insert(
+                        instruction.destination,
+                        instruction
+                            .operand1
+                            .parse::<u16>()
+                            .unwrap_or_else(|_| *wires.get(&instruction.operand1).unwrap()),
+                    );
+                }
+            };
+            wires.contains_key(&"a")
+        }) {
+            true => return *wires.get(&"a").unwrap(),
+            false => (),
+        }
     }
 }
 
