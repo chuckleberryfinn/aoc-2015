@@ -79,8 +79,8 @@ fn part2() -> usize {
 }
 
 fn main() {
-    println!("{:?}", part1());
-    println!("{:?}", part2());
+    println!("{}", part1());
+    println!("{}", part2());
 }
 
 #[cfg(test)]
