@@ -1,9 +1,9 @@
-fn get_inputs() -> std::str::Chars<'static> {
-    include_str!("../../input/day01.txt").chars()
+fn get_inputs() -> Vec<char> {
+    include_str!("../../input/day01.txt").chars().collect()
 }
 
 fn part1() -> i32 {
-    get_inputs().fold(0, |acc, x| {
+    get_inputs().iter().fold(0, |acc, x| {
         acc + match x {
             '(' => 1,
             _ => -1,
@@ -13,6 +13,7 @@ fn part1() -> i32 {
 
 fn part2() -> usize {
     get_inputs()
+        .iter()
         .enumerate()
         .scan(0, |state, (i, x)| {
             if *state < 0 {
