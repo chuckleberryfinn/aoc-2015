@@ -19,7 +19,7 @@ fn is_valid(pass: &Vec<u8>) -> bool {
     let mut i = 0;
     let mut c = false;
     while i < 7 {
-        if pass[i] == pass[i+1] {
+        if pass[i] == pass[i + 1] {
             if c {
                 valid = true;
                 break;
@@ -37,7 +37,7 @@ fn is_valid(pass: &Vec<u8>) -> bool {
 fn part1(seed: &str) -> String {
     let mut seed = seed.bytes().collect();
     (0..)
-        .scan(&mut seed, | pass: &mut &mut Vec<u8>, _ | {
+        .scan(&mut seed, |pass: &mut &mut Vec<u8>, _| {
             for x in (0..8).rev() {
                 if pass[x] == 'z' as u8 {
                     pass[x] = 'a' as u8;

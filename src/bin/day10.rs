@@ -9,13 +9,13 @@ fn run(reps: usize) -> usize {
                 match state[l] == state[r] {
                     true => r += 1,
                     false => {
-                        ns.extend((r-l).to_string().bytes());
+                        ns.extend((r - l).to_string().bytes());
                         ns.push(state[l]);
                         l = r;
                     }
                 };
             }
-            ns.extend((r-l).to_string().bytes());
+            ns.extend((r - l).to_string().bytes());
             ns.push(state[l]);
             *state = ns;
             Some(state.len())
